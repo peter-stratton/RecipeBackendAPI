@@ -5,7 +5,7 @@ from django.urls import reverse
 
 class AdminSiteTests(TestCase):
 
-    def setup(self):
+    def setUp(self):
         self.client = Client()
         self.admin_user = get_user_model().objects.create_superuser(
             email='adminuser@example.com',
@@ -24,3 +24,9 @@ class AdminSiteTests(TestCase):
 
         self.assertContains(res, self.test_user.name)
         self.assertContains(res, self.test_user.email)
+
+    def test_users_change_page_resolves_correctly(self):
+        url = reverse('admin:core_user_change', args=[self.test_user.id])
+        res = self.client.get(url)
+
+        self.assertEqual(res.status_code, 200)
