@@ -9,3 +9,6 @@ test:
 
 lint:
 	@docker-compose run app sh -c "flake8"
+
+super:
+	@docker-compose run app sh -c "python manage.py createsuperuser"
